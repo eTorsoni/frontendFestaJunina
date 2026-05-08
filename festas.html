@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Festas - Arraial Connect</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  >
+</head>
+
+<body>
+
+  <section class="festas-page">
+  <div class="topo">
+    <h1>Próximas Festas</h1>
+    <div class="icons">
+      <div class="icon-box search-icon">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+      <div class="icon-box">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="search-bar" id="searchBar" style="display: none;">
+    <input type="text" id="searchInput" placeholder="Buscar festas..." />
+  </div>
+
+  <div class="category-menu">
+    <button class="category-button active" data-cat="">Todas</button>
+    <button class="category-button" data-cat="Junina">Junina</button>
+    <button class="category-button" data-cat="Arraial">Arraial</button>
+    <button class="category-button" data-cat="Quadrilha">Quadrilha</button>
+  </div>
+
+  <div id="festasContainer">
+    <p style="text-align: center; margin-top: 20px;">A carregar festas...</p>
+  </div>
+
+  <div class="bottom-menu">
+    <a href="index.html"><i class="fa-solid fa-house"></i><span>Home</span></a>
+    <a href="festas.html" class="active"><i class="fa-solid fa-calendar"></i><span>Festas</span></a>
+    <a href="perfil.html"><i class="fa-regular fa-user"></i><span>Perfil</span></a>
+  </div>
+</section>
+
+<script>
+  const API_URL = 'http://localhost:3000/festas';
+  const container = document.getElementById('festasContainer');
+
+  // Função para carregar festas
+  async function carregarFestas(categoria = '') {
+    try {
+      const url = categoria ? `${API_URL}?categoria=${categoria}` : API_URL;
+      const response = await fetch(url);
+      const festas = await response.json();
+
+      renderizarFestas(festas);
+    } catch (error) {
+      container.innerHTML = '<p>Erro ao carregar festas.</p>';
+      console.error(error);
+    }
+  }
+
+  // Função para criar o HTML das festas
+  function renderizarFestas(festas) {
+    container.innerHTML = '';
+    
+    if (festas.length === 0) {
+      container.innerHTML = '<p style="text-align:center;">Nenhuma festa encontrada.</p>';
+      return;
+    }
+
+    festas.forEach(festa => {
+      const card = document.createElement('div');
+      card.className = `festa-card ${festa.categoria === 'Junina' ? 'red' : ''}`;
+      card.innerHTML = `
+        <div class="left">
+          <div class="fire">🔥</div>
+          <div>
+            <h3>${festa.titulo}</h3>
+            <p>${festa.data_festa}</p>
+            <p>${festa.local}</p>
+          </div>
+        </div>
+        <i class="fa-solid fa-location-dot"></i>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  // Filtro por categoria
+  document.querySelectorAll('.category-button').forEach(button => {
+    button.addEventListener('click', () => {
+      document.querySelectorAll('.category-button').forEach(item => item.classList.remove('active'));
+      button.classList.add('active');
+      carregarFestas(button.getAttribute('data-cat'));
+    });
+  });
+
+  // Lógica da barra de busca (Frontend filter)
+  const searchInput = document.getElementById('searchInput');
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase();
+    const cards = document.querySelectorAll('.festa-card');
+    cards.forEach(card => {
+      const title = card.querySelector('h3').textContent.toLowerCase();
+      card.style.display = title.includes(query) ? 'flex' : 'none';
+    });
+  });
+
+  // Toggle Search Bar
+  document.querySelector('.search-icon').addEventListener('click', () => {
+    const bar = document.getElementById('searchBar');
+    bar.style.display = bar.style.display === 'none' ? 'block' : 'none';
+  });
+
+  // Carregamento inicial
+  carregarFestas();
+</script>

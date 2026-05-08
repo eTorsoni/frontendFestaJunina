@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Perfil - Arraial Connect</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  >
+</head>
+
+<body>
+
+  <section class="perfil-page">
+
+    <!-- TOPO -->
+
+    <div class="perfil-topo">
+
+      <h1>Seu Perfil</h1>
+
+    </div>
+
+    <div class="category-menu">
+      <button class="category-button active" data-section="favoritas">Favoritas</button>
+      <button class="category-button" data-section="proximas">Próximas</button>
+      <button class="category-button" data-section="convidadas">Convidadas</button>
+    </div>
+
+    <!-- PERFIL -->
+
+    <div class="perfil-card">
+
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+        alt="Perfil"
+      >
+
+      <h2>Usuário Junino</h2>
+
+      <p>@usuariojunino</p>
+
+      <div class="perfil-info">
+
+        <div class="info-box">
+          <h3>12</h3>
+          <span>Festas</span>
+        </div>
+
+        <div class="info-box">
+          <h3>18</h3>
+          <span>Eventos</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- FAVORITAS -->
+
+    <div class="section" id="favoritas">
+      <div class="section-title">
+        <h2>🔥 Festas Favoritas</h2>
+      </div>
+
+      <div class="mini-card">
+        <div class="left-mini">
+          <div class="fire">🔥</div>
+          <div>
+            <h3>Arraial da Roça</h3>
+            <p>22 de Junho</p>
+          </div>
+        </div>
+        <i class="fa-solid fa-heart"></i>
+      </div>
+
+      <div class="mini-card red">
+        <div class="left-mini">
+          <div class="fire">🔥</div>
+          <div>
+            <h3>São João da Praça</h3>
+            <p>25 de Junho</p>
+          </div>
+        </div>
+        <i class="fa-solid fa-heart"></i>
+      </div>
+    </div>
+
+    <!-- PRÓXIMAS -->
+
+    <div class="section" id="proximas" style="display: none;">
+      <div class="section-title">
+        <h2>📅 Próximas Festas</h2>
+      </div>
+
+      <div class="mini-card">
+        <div class="left-mini">
+          <div class="fire">🔥</div>
+          <div>
+            <h3>Noite de São João</h3>
+            <p>28 de Junho</p>
+          </div>
+        </div>
+        <i class="fa-solid fa-calendar"></i>
+      </div>
+    </div>
+
+    <!-- CONVIDADAS -->
+
+    <div class="section" id="convidadas" style="display: none;">
+      <div class="section-title">
+        <h2>🎉 Festas Convidadas</h2>
+      </div>
+
+      <div class="mini-card">
+        <div class="left-mini">
+          <div class="fire">🔥</div>
+          <div>
+            <h3>Festa Junina da Praça</h3>
+            <p>25 de Junho</p>
+          </div>
+        </div>
+        <i class="fa-solid fa-envelope"></i>
+      </div>
+    </div>
+
+    <!-- MENU -->
+
+    <div class="bottom-menu">
+
+      <a href="index.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </a>
+
+      <a href="festas.html">
+        <i class="fa-solid fa-calendar"></i>
+        <span>Festas</span>
+      </a>
+
+      <a href="perfil.html" class="active">
+        <i class="fa-regular fa-user"></i>
+        <span>Perfil</span>
+      </a>
+
+    </div>
+
+  </section>
+
+  <script>
+    document.querySelectorAll('.category-button').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.category-button').forEach(item => item.classList.remove('active'));
+        button.classList.add('active');
+
+        const section = button.getAttribute('data-section');
+        document.querySelectorAll('.section').forEach(sec => sec.style.display = 'none');
+        document.getElementById(section).style.display = 'block';
+      });
+    });
+  </script>
+
+</body>
+</html>
