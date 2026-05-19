@@ -91,6 +91,109 @@
         button.classList.add('active');
       });
     });
+
+    // ===== TEMPERATURA E COR DE FUNDO =====
+    function atualizarTemperatura() {
+      const apiKey = 'f3c80e91e5ab42979c7134b41ab3a9e7';
+      
+      // Tenta usar geolocation se disponível
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=pt_br&appid=${apiKey}`;
+            
+            fetch(url)
+              .then(response => response.json())
+              .then(dados => {
+                const temperatura = Math.round(dados.main.temp);
+                const cidade = dados.name;
+                aplicarTemperatura(temperatura, cidade);
+              })
+              .catch(erro => {
+                console.error('Erro ao buscar temperatura por geolocalização:', erro);
+                buscarTemperaturaDefaultPorCidade();
+              });
+          },
+          (erro) => {
+            console.error('Geolocalização não permitida:', erro);
+            buscarTemperaturaDefaultPorCidade();
+          }
+        );
+      } else {
+        buscarTemperaturaDefaultPorCidade();
+      }
+    }
+
+    function buscarTemperaturaDefaultPorCidade() {
+      const apiKey = 'f3c80e91e5ab42979c7134b41ab3a9e7';
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=São Paulo,BR&units=metric&lang=pt_br&appid=${apiKey}`;
+      
+      fetch(url)
+        .then(response => response.json())
+        .then(dados => {
+          const temperatura = Math.round(dados.main.temp);
+          const cidade = dados.name;
+          aplicarTemperatura(temperatura, cidade);
+        })
+        .catch(erro => {
+          console.error('Erro ao buscar temperatura padrão:', erro);
+          // Usa temperatura aleatória como fallback
+          aplicarTemperaturaFallback();
+        });
+    }
+
+    function aplicarTemperaturaFallback() {
+      // Se tudo falhar, usa uma temperatura aleatória para demonstrar
+      const temperaturas = [10, 20, 25, 32];
+      const temperatura = temperaturas[Math.floor(Math.random() * temperaturas.length)];
+      aplicarTemperatura(temperatura, 'Festa Junina');
+    }
+
+    function aplicarTemperatura(temperatura, cidade) {
+      const homeSection = document.querySelector('.home');
+      if (!homeSection) return;
+
+      let classe = '';
+      let descricao = '';
+      
+      if (temperatura < 15) {
+        classe = 'temp-frio';
+        descricao = '❄️ Frio';
+      } else if (temperatura < 22) {
+        classe = 'temp-morno';
+        descricao = '🌤️ Morno';
+      } else if (temperatura < 28) {
+        classe = 'temp-quente';
+        descricao = '☀️ Quente';
+      } else {
+        classe = 'temp-muito-quente';
+        descricao = '🔥 Muito Quente';
+      }
+      
+      // Remove classes antigas e adiciona a nova
+      homeSection.classList.remove('temp-frio', 'temp-morno', 'temp-quente', 'temp-muito-quente');
+      homeSection.classList.add(classe);
+      
+      // Cria ou atualiza indicador no body para garantir que fica visível
+      let indicador = document.querySelector('.temperatura-indicator');
+      if (!indicador) {
+        indicador = document.createElement('div');
+        indicador.className = 'temperatura-indicator';
+        document.body.appendChild(indicador);
+      }
+      
+      indicador.textContent = `${descricao} - ${temperatura}°C - ${cidade}`;
+      console.log(`Temperatura aplicada: ${descricao} (${temperatura}°C) - ${classe}`);
+    }
+
+    // Iniciar ao carregar a página
+    document.addEventListener('DOMContentLoaded', () => {
+      atualizarTemperatura();
+      // Atualiza a cada 10 minutos
+      setInterval(atualizarTemperatura, 600000);
+    });
   </script>
 </body>
 </html>
