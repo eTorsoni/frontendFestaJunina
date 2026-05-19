@@ -73,6 +73,7 @@ body {
 
   top: 0;
   left: 0;
+  z-index: 1;
 }
 
 /* MENU */
@@ -444,4 +445,234 @@ body {
   border-radius: 20px;
 
   margin-bottom: 20px;
+}
+
+.festa-card .left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.festa-card.red {
+  background: #dc2626;
+}
+
+.mini-card.red {
+  background: #fef0f0;
+  border-left: 4px solid #dc2626;
+}
+
+.mini-card i {
+  color: #ea580c;
+  font-size: 20px;
+}
+
+/* SISTEMA DE MILHAS */
+.milhas-section {
+  background: linear-gradient(135deg, #ffd580, #ffb347);
+  padding: 20px;
+  border-radius: 15px;
+  margin: 20px 0;
+  box-shadow: 0 4px 15px rgba(255, 181, 71, 0.3);
+}
+
+.milhas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.milhas-header h3 {
+  color: #8b4513;
+  font-size: 20px;
+  margin: 0;
+}
+
+.milhas-count {
+  background: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  color: #ff8c00;
+  font-size: 18px;
+}
+
+.milhas-info {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.milhas-info p {
+  color: #8b4513;
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.milhas-button {
+  width: 100%;
+  padding: 12px;
+  background: #8b4513;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.milhas-button:hover {
+  background: #6b3410;
+}
+
+/* CORREIO ELEGANTE */
+.correio-section {
+  background: linear-gradient(135deg, #ffb6c1, #ffc0cb);
+  padding: 20px;
+  border-radius: 15px;
+  margin: 20px 0;
+  box-shadow: 0 4px 15px rgba(255, 192, 203, 0.3);
+}
+
+.correio-header h3 {
+  color: #c7254e;
+  font-size: 20px;
+  margin: 0 0 15px 0;
+}
+
+.cantada-box {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  border-left: 4px solid #ff1493;
+  margin-bottom: 15px;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  font-style: italic;
+  color: #8b4513;
+  line-height: 1.6;
+}
+
+.correio-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.correio-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+  color: white;
+}
+
+.btn-gerar {
+  background: #ff1493;
+}
+
+.btn-gerar:hover {
+  background: #ff0080;
+}
+
+.btn-copiar {
+  background: #40e0d0;
+}
+
+.btn-copiar:hover {
+  background: #20b2aa;
+}
+
+/* TEMPERATURA INDICATOR */
+.temperatura-indicator {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 12px 18px;
+  border-radius: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+  font-size: 14px;
+  color: #333;
+  font-weight: bold;
+  pointer-events: auto;
+}
+
+/* TRANSIÇÕES DE TEMPERATURA - APENAS NA HOME */
+.home.temp-frio {
+  background: linear-gradient(
+    135deg,
+    #3498db 0%,
+    #2980b9 100%
+  ) !important;
+  background-attachment: fixed;
+}
+
+.home.temp-frio .overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(52, 152, 219, 0.4),
+    rgba(41, 128, 185, 0.3),
+    rgba(255,120,0,0.2)
+  ) !important;
+}
+
+.home.temp-morno {
+  background: linear-gradient(
+    135deg,
+    #f39c12 0%,
+    #e67e22 100%
+  ) !important;
+  background-attachment: fixed;
+}
+
+.home.temp-morno .overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(243, 156, 18, 0.4),
+    rgba(230, 126, 34, 0.3),
+    rgba(255,120,0,0.2)
+  ) !important;
+}
+
+.home.temp-quente {
+  background: linear-gradient(
+    135deg,
+    #e74c3c 0%,
+    #c0392b 100%
+  ) !important;
+  background-attachment: fixed;
+}
+
+.home.temp-quente .overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(231, 76, 60, 0.4),
+    rgba(192, 57, 43, 0.3),
+    rgba(255,120,0,0.2)
+  ) !important;
+}
+
+.home.temp-muito-quente {
+  background: linear-gradient(
+    135deg,
+    #ff6347 0%,
+    #dc143c 100%
+  ) !important;
+  background-attachment: fixed;
+}
+
+.home.temp-muito-quente .overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 99, 71, 0.5),
+    rgba(220, 20, 60, 0.4),
+    rgba(255,120,0,0.2)
+  ) !important;
 }
